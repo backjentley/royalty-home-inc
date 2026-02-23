@@ -1,20 +1,12 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-charcoal: #09090B;          /* Zinc 950 */
-  --color-charcoal-light: #18181B;    /* Zinc 900 */
-  --color-charcoal-card: #27272A;     /* Zinc 800 */
-  --color-charcoal-elevated: #3F3F46; /* Zinc 700 */
-  
-  --color-ivory: #FAFAFA;             /* Zinc 50 Base Background */
-  --color-white: #FFFFFF;             /* Pure White Cards */
-  --color-pearl-mist: #F4F4F5;        /* Zinc 100 Subtle borders/hover */
-  
-  --color-smoke: #71717A;             /* Zinc 500 Secondary text */
-  --color-ghost: rgba(0,0,0,0.02);    /* Imperceptible depth */
-  
-  --color-blue-accent: #0066CC;       /* Apple Blue style accent if needed */
-  
+  --color-background: #0A0A0A;
+  --color-surface: #171717;
+  --color-surface-hover: #262626;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #A1A1AA;
   --font-sans: var(--font-inter);
 }
 
@@ -26,11 +18,12 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  background-color: var(--color-background);
 }
 
 body {
-  background: var(--color-ivory);
-  color: var(--color-charcoal);
+  background: var(--color-background);
+  color: var(--color-text-primary);
   font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -38,30 +31,30 @@ body {
   overflow-x: hidden;
 }
 
-/* ─── Apple-Tier Subtle Film Grain ─── */
+/* ─── Premium Dark Film Grain ─── */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.015; /* Ultra subtle, just to prevent banding */
+  opacity: 0.05; /* slightly stronger for dark mode */
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 200px 200px;
-  mix-blend-mode: multiply;
+  mix-blend-mode: overlay;
 }
 
 ::selection {
-  background: rgba(0, 0, 0, 0.1);
-  color: var(--color-charcoal);
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--color-text-primary);
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
 
 /* ═══════════════════════════════════════════
    TYPOGRAPHY
@@ -79,45 +72,47 @@ body::after {
 }
 
 .text-body {
-  color: var(--color-smoke);
+  color: var(--color-text-secondary);
   line-height: 1.6;
   font-size: 1.05rem;
   letter-spacing: -0.01em;
 }
 
 /* ═══════════════════════════════════════════
-   BENTO GRID & GLASS (Light Mode)
+   PREMIUM DARK GLASS & BENTO
    ═══════════════════════════════════════════ */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+  position: relative;
+  overflow: hidden;
+}
+
 .bento-card {
-  background: var(--color-white);
-  border: 1px solid rgba(0,0,0,0.06);
+  background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+  border: 1px solid var(--color-border);
   border-radius: 24px;
   position: relative;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
   overflow: hidden;
 }
 
 .bento-card:hover {
-  transform: translateY(-2px) scale(1.005);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.03);
-  border-color: rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.12);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
 }
 
 .glass-nav {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(20px) saturate(1.8);
-  -webkit-backdrop-filter: blur(20px) saturate(1.8);
-  border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-
-.glass-panel {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(24px) saturate(1.5);
-  -webkit-backdrop-filter: blur(24px) saturate(1.5);
-  border: 1px solid rgba(0,0,0,0.08);
-  border-radius: 24px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.05);
+  background: rgba(10, 10, 10, 0.65);
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  border-bottom: 1px solid var(--color-border);
 }
 
 /* ═══════════════════════════════════════════
@@ -129,38 +124,39 @@ body::after {
   border-radius: 20px;
   cursor: pointer;
   transform: translateZ(0); /* Force hardware acceleration */
+  border: 1px solid var(--color-border);
 }
 
 .portfolio-image::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 40%);
-  opacity: 0;
-  transition: opacity 0.5s ease;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+  border-radius: 20px;
+  pointer-events: none;
 }
 
-.portfolio-image:hover::after { opacity: 1; }
-
 .portfolio-image img {
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+  filter: brightness(0.9) saturate(1.1);
 }
 
 .portfolio-image:hover img {
-  transform: scale(1.04);
+  transform: scale(1.03);
+  filter: brightness(1) saturate(1.2);
 }
 
 /* ═══════════════════════════════════════════
    BUTTONS
    ═══════════════════════════════════════════ */
 .btn-primary {
-  background: var(--color-charcoal);
-  color: var(--color-white);
+  background: var(--color-text-primary);
+  color: var(--color-background);
   border-radius: 9999px;
   font-weight: 500;
   letter-spacing: -0.01em;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(255,255,255,0.1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -168,8 +164,8 @@ body::after {
 
 .btn-primary:hover {
   transform: scale(1.02);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  background: var(--color-charcoal-light);
+  box-shadow: 0 8px 24px rgba(255,255,255,0.2);
+  background: #f4f4f5; /* Zinc 100 */
 }
 
 .btn-primary:active {
@@ -177,9 +173,9 @@ body::after {
 }
 
 .btn-secondary {
-  background: var(--color-white);
-  color: var(--color-charcoal);
-  border: 1px solid rgba(0,0,0,0.08);
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
   border-radius: 9999px;
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -190,8 +186,8 @@ body::after {
 }
 
 .btn-secondary:hover {
-  background: var(--color-pearl-mist);
-  border-color: rgba(0,0,0,0.12);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
 /* ═══════════════════════════════════════════
@@ -204,10 +200,9 @@ body::after {
   text-transform: uppercase;
   padding: 6px 14px;
   border-radius: 100px;
-  background: var(--color-white);
-  border: 1px solid rgba(0,0,0,0.06);
-  color: var(--color-charcoal-elevated);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
 }
 
 .stat-value {
@@ -224,13 +219,13 @@ body::after {
   position: fixed;
   bottom: 0; left: 0; right: 0;
   z-index: 90;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(0,0,0,0.05);
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid var(--color-border);
   padding: 12px 16px;
   padding-bottom: max(12px, env(safe-area-inset-bottom));
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.04);
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
 }
 
 @media (min-width: 768px) {
