@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   title: "Royalty Home Inc. | Premium Residential Renovations — Barrie & GTA",
   description: "Proudly Canadian. Flooring, painting, kitchens, bathrooms, and lighting. Premium residential renovations serving Barrie and the Greater Toronto Area.",
   openGraph: {
-    title: "Royalty Home Inc. | Crafted, Not Copied.",
-    description: "Premium residential renovations in Barrie & the GTA. Built to a standard, not a price point.",
+    title: "Royalty Home Inc. | Premium Renovations",
+    description: "Crafted, not copied. Premium residential renovations in Barrie & the GTA.",
     type: "website",
   },
 };
@@ -23,11 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth dark">
-      <head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-      </head>
-      <body className={`${inter.variable} font-sans antialiased text-white bg-[#0A0A0A] tracking-tight`}>
+    <html lang="en" className="scroll-smooth">
+      <body className={`${inter.variable} font-sans antialiased`}>
         {children}
       </body>
     </html>
